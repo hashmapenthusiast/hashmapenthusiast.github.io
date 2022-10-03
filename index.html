@@ -38,8 +38,8 @@
             transform: rotate(var(--i4));
         }
 
-        #HURRICANEHOLDER{
-            height:1000px
+        #HURRICANEHOLDER {
+            height: 1000px
         }
     </style>
 </head>
@@ -59,21 +59,25 @@
         Delay (in milliseconds 1-10000): <input type="number" id="delay" min="1" max="10000" step="0.1" placeholder="200">
         <input type="checkbox" id="coloured">coloured
         <fieldset>
+            <input type="checkbox" name="" id="i110" checked> ON/OFF
             <input type="range" name="image1" id="i1r" min="0" max="359">
             <input type="number" name="image1" id="i1n" min="0" max="359">
             GREEN
         </fieldset>
         <fieldset>
+            <input type="checkbox" name="" id="i210" checked> ON/OFF
             <input type="range" name="image2" id="i2r" min="0" max="359">
             <input type="number" name="image2" id="i2n" min="0" max="359">
             RED
         </fieldset>
         <fieldset>
+            <input type="checkbox" name="" id="i310" checked> ON/OFF
             <input type="range" name="image3" id="i3r" min="0" max="359">
             <input type="number" name="image3" id="i3n" min="0" max="359">
             BLUE
         </fieldset>
         <fieldset>
+            <input type="checkbox" name="" id="i410" checked> ON/OFF
             <input type="range" name="image4" id="i4r" min="0" max="359">
             <input type="number" name="image4" id="i4n" min="0" max="359">
             BLACK
@@ -120,6 +124,10 @@
         const i3n = document.querySelector('#i3n');
         const i4r = document.querySelector('#i4r');
         const i4n = document.querySelector('#i4n');
+        const i110 = document.querySelector('#i110');
+        const i210 = document.querySelector('#i210');
+        const i310 = document.querySelector('#i310');
+        const i410 = document.querySelector('#i410');
 
         const rotatePicture = (e) => {
             //what triggered
@@ -208,6 +216,22 @@
             clearInterval(clockwise);
             on = false;
         }
+        const onOff = (e) => {
+            const image = document.querySelector('#img'+e.target.id[1])
+            
+            if(e.target.checked){
+                image.style.setProperty('visibility','visible')
+                
+            }else{
+                image.style.setProperty('visibility','hidden')
+            }
+
+
+        }
+        i110.addEventListener('change', (e) => onOff(e))
+        i210.addEventListener('change', (e) => onOff(e))
+        i310.addEventListener('change', (e) => onOff(e))
+        i410.addEventListener('change', (e) => onOff(e))
 
         forwards.addEventListener("click", start);
         pause.addEventListener("click", stop);
@@ -225,4 +249,5 @@
         })
     </script>
 </body>
+
 </html>
