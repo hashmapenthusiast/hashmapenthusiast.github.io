@@ -1,118 +1,150 @@
 <!doctype html>
 <html>
+
 <head>
-<link rel="stylesheet" type="text/css" media="all" href="css/reset.css" /> <!-- reset css -->
- 
-<style>
-    body{ background-color: ivory; }
-    img{position: absolute; top: 100px; left: 100px;}
-    #img1{--i1:0deg;transform: rotate(var(--i1))}
-    #img2{--i2:0deg;transform: rotate(var(--i2))}
-    #img3{--i3:0deg;transform: rotate(var(--i3))}
-    #img4{--i4:0deg;transform: rotate(var(--i4))}
- 
-</style>
- 
- 
+    <link rel="stylesheet" type="text/css" media="all" href="css/reset.css" /> <!-- reset css -->
+    <style>
+        body {
+            background-color: ivory;
+        }
+
+        img {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+        }
+
+        #img1 {
+            --i1: 0deg;
+            transform: rotate(var(--i1));
+        }
+
+        #img2 {
+            --i2: 0deg;
+            transform: rotate(var(--i2));
+        }
+
+        #img3 {
+            --i3: 0deg;
+            transform: rotate(var(--i3));
+        }
+
+        #img4 {
+            --i4: 0deg;
+            transform: rotate(var(--i4));
+        }
+    </style>
 </head>
- 
+
 <body>
     <button id="playbackwards">Play Backwards</button>
     <button id="pause">Pause</button>
     <button id="playforwards">Play Forwards</button>
-    Degrees to rotate: <input type="number" id="increment" min="1" max="359" step="1"  placeholder="1">
-    Delay (in milliseconds 1-1000): <input type="number" id="delay" min="1" max="1000" step="1"  placeholder="200">
+    Degrees to rotate: <input type="number" id="increment" min="1" max="359" step="1" placeholder="1">
+    Delay (in milliseconds 1-1000): <input type="number" id="delay" min="1" max="1000" step="1" placeholder="200">
     <input type="checkbox" id="coloured">coloured
- 
- 
+
+
     <script>
- 
-const image1=document.createElement("img");
-image1.src="Clue1.png";
-image1.id="img1";
-document.body.appendChild(image1);
- 
-const image2=document.createElement("img");
-image2.src="Clue2.png";
-image2.id="img2";
-document.body.appendChild(image2);
- 
-const image3=document.createElement("img");
-image3.src="Clue3.png";
-image3.id="img3";
-document.body.appendChild(image3);
- 
-const image4=document.createElement("img");
-image4.src="Clue4.png";
-image4.id="img4";
-document.body.appendChild(image4);
- 
-const forwards=document.querySelector("#playforwards");
-const backwards=document.querySelector("#playbackwards");
-const delay=document.querySelector("#delay");
-const pause=document.querySelector("#pause");
- 
-const play=()=>{
-console.log("hello");
-    let angle1=getComputedStyle(image1).getPropertyValue("--i1");
-    let angle2=getComputedStyle(image2).getPropertyValue("--i2");
-    let angle3=getComputedStyle(image3).getPropertyValue("--i3");
-    const increment=Number(document.querySelector("#increment").value)||1;
-    let next1=Number(angle1.match(/[0-9]*/)[0])+increment;
-    let next2=Number(angle2.match(/[0-9]*/)[0]);
-    let next3=Number(angle3.match(/[0-9]*/)[0]);
-    if (next1>=360){
-        next1%=360
-        next2+=increment
-        if(next2>=360){
-           next2%=360
-            next3+=increment 
-            if(next3>=360){
-                next3%=360
+        const CLU1B ='https://cdn.discordapp.com/attachments/1026379861549400155/1026381086147747870/Clue1.png';
+        const CLU2B = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381087041126480/Clue2.png';
+        const CLU3B = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381087833849866/Clue3.png';
+        const CLU4B = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381085745102898/Clue4.png';
+        const CLU1C = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381086630105100/Clue1coloured.png';
+        const CLU2C = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381087456378940/Clue2coloured.png';
+        const CLU3C = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381089834549329/Clue3coloured.png';
+        
+
+
+        const image1 = document.createElement("img");
+        const image2 = document.createElement("img");
+        const image3 = document.createElement("img");
+        const image4 = document.createElement("img");
+
+        image1.src = CLU1B;
+        image2.src = CLU2B;
+        image3.src = CLU3B;
+        image4.src = CLU4B;
+        
+        document.body.appendChild(image1);
+        document.body.appendChild(image2);
+        document.body.appendChild(image3);
+        document.body.appendChild(image4);
+        
+        image1.id = "img1";
+        image2.id = "img2";
+        image3.id = "img3";
+        image4.id = "img4";
+
+
+        const forwards = document.querySelector("#playforwards");
+        const backwards = document.querySelector("#playbackwards");
+        const delay = document.querySelector("#delay");
+        const pause = document.querySelector("#pause");
+
+        const coloured = document.querySelector("#coloured");
+
+        const play = () => {
+            console.log("hello");
+            let angle1 = getComputedStyle(image1).getPropertyValue("--i1");
+            let angle2 = getComputedStyle(image2).getPropertyValue("--i2");
+            let angle3 = getComputedStyle(image3).getPropertyValue("--i3");
+            const increment = Number(document.querySelector("#increment").value) || 1;
+            let next1 = Number(angle1.match(/[0-9]*/)[0]) + increment;
+            let next2 = Number(angle2.match(/[0-9]*/)[0]);
+            let next3 = Number(angle3.match(/[0-9]*/)[0]);
+            if (next1 >= 360) {
+                next1 %= 360
+                next2 += increment
+                if (next2 >= 360) {
+                    next2 %= 360
+                    next3 += increment
+                    if (next3 >= 360) {
+                        next3 %= 360
+                    }
+                }
             }
+
+            next1 = "" + next1 + "deg";
+            next2 = "" + next2 + "deg";
+            next3 = "" + next3 + "deg";
+            console.log("next1: ", next1);
+            console.log("next2: ", next2);
+            console.log("next3: ", next3);
+            image1.style.setProperty("--i1", next1)
+            image2.style.setProperty("--i2", next2)
+            image3.style.setProperty("--i3", next3)
+
+
         }
-    }
- 
-    next1=""+next1+"deg";
-    next2=""+next2+"deg";
-    next3=""+next3+"deg";
-    console.log("next1: ", next1);
-    console.log("next2: ", next2);
-    console.log("next3: ", next3);
-    image1.style.setProperty("--i1", next1)
-    image2.style.setProperty("--i2", next2)
-    image3.style.setProperty("--i3", next3)
- 
- 
-}
- 
-let frame=Number(delay.value)||200;
-const start=()=>{
-    clockwise=setInterval(play, frame);
-}
-const stop=()=>{
-    clearInterval(clockwise);
-}
-forwards.addEventListener("click", start);
-pause.addEventListener("click", stop);
- 
-const coloured=document.querySelector("#coloured");
-coloured.addEventListener("change",()=>{
-    console.log(coloured.checked);
-    if (coloured.checked){
-        image1.src="Clue1coloured.png";
-        image2.src="Clue2coloured.png";
-        image3.src="Clue3coloured.png";
-    }
-    else {
-        image1.src="Clue1.png";
-        image2.src="Clue2.png";
-        image3.src="Clue3.png";
-    }
-})
- 
-</script>
+
+        let frame = Number(delay.value) || 200;
+
+        const start = () => {
+            clockwise = setInterval(play, frame);
+        }
+
+        const stop = () => {
+            clearInterval(clockwise);
+        }
+
+        forwards.addEventListener("click", start);
+        pause.addEventListener("click", stop);
+
+        coloured.addEventListener("change", () => {
+            console.log(coloured.checked);
+            if (coloured.checked) {
+                image1.src = "Clue1coloured.png";
+                image2.src = "Clue2coloured.png";
+                image3.src = "Clue3coloured.png";
+            }
+            else {
+                image1.src = CLU1C;
+                image2.src = CLU1C;
+                image3.src = CLU1C;
+            }
+        })
+
+    </script>
 </body>
- 
- 
 </html>
