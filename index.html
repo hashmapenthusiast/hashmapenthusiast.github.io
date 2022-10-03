@@ -46,14 +46,14 @@
 
 
     <script>
-        const CLU1B ='https://cdn.discordapp.com/attachments/1026379861549400155/1026381086147747870/Clue1.png';
+        const CLU1B = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381086147747870/Clue1.png';
         const CLU2B = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381087041126480/Clue2.png';
         const CLU3B = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381087833849866/Clue3.png';
         const CLU4B = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381085745102898/Clue4.png';
         const CLU1C = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381086630105100/Clue1coloured.png';
         const CLU2C = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381087456378940/Clue2coloured.png';
         const CLU3C = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381089834549329/Clue3coloured.png';
-        
+
 
 
         const image1 = document.createElement("img");
@@ -65,12 +65,12 @@
         image2.src = CLU2B;
         image3.src = CLU3B;
         image4.src = CLU4B;
-        
+
         document.body.appendChild(image1);
         document.body.appendChild(image2);
         document.body.appendChild(image3);
         document.body.appendChild(image4);
-        
+
         image1.id = "img1";
         image2.id = "img2";
         image3.id = "img3";
@@ -134,17 +134,17 @@
         coloured.addEventListener("change", () => {
             console.log(coloured.checked);
             if (coloured.checked) {
-                image1.src = "Clue1coloured.png";
-                image2.src = "Clue2coloured.png";
-                image3.src = "Clue3coloured.png";
-            }
-            else {
                 image1.src = CLU1C;
-                image2.src = CLU1C;
-                image3.src = CLU1C;
+                image2.src = CLU2C;
+                image3.src = CLU3C;
+            } else {
+                image1.src = CLU1B;
+                image2.src = CLU2B;
+                image3.src = CLU3B;
             }
         })
 
     </script>
 </body>
+
 </html>
