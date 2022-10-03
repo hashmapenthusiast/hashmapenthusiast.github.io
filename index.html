@@ -55,7 +55,7 @@
     <button id="pause">Pause</button>
     <button id="playforwards">Play Forwards</button>
     Degrees to rotate: <input type="number" id="increment" min="1" max="359" step="1" placeholder="1">
-    Delay (in milliseconds 1-1000): <input type="number" id="delay" min="1" max="10000" step="1" placeholder="200">
+    Delay (in milliseconds 1-10000): <input type="number" id="delay" min="1" max="10000" step="1" placeholder="200">
     <input type="checkbox" id="coloured">coloured
     <form action="">
         <fieldset>
@@ -171,13 +171,22 @@
                 }
             }
 
+            i1r.value = next1
+            i1n.value = next1
+            i2r.value = next2
+            i2n.value = next2
+            i3r.value = next3
+            i3n.value = next3
             next1 = "" + next1 + "deg";
             next2 = "" + next2 + "deg";
             next3 = "" + next3 + "deg";
             console.log("next1: ", next1);
             console.log("next2: ", next2);
             console.log("next3: ", next3);
-            image1.style.setProperty("--i1", next1)
+
+
+
+                image1.style.setProperty("--i1", next1)
             image2.style.setProperty("--i2", next2)
             image3.style.setProperty("--i3", next3)
 
@@ -188,6 +197,7 @@
         let on = false
         const start = () => {
             if (!on) {
+                frame = Number(delay.value) || 200;
                 clockwise = setInterval(play, frame);
                 on = true;
             }
