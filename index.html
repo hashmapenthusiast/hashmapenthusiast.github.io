@@ -7,7 +7,6 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" media="all" href="css/reset.css" /> <!-- reset css -->
     <style>
         body {
             background-color: ivory;
@@ -48,36 +47,38 @@
     <h2>
         programmer broomholder
     </h2>
-
-
-
-    <button id="playbackwards">Play Backwards</button>
-    <button id="pause">Pause</button>
-    <button id="playforwards">Play Forwards</button>
-    Degrees to rotate: <input type="number" id="increment" min="1" max="359" step="1" placeholder="1">
-    Delay (in milliseconds 1-10000): <input type="number" id="delay" min="1" max="10000" step="1" placeholder="200">
-    <input type="checkbox" id="coloured">coloured
-    <form action="">
+    <div>
+        <!-- <button id="playbackwards">Play Backwards</button> -->
+        <button id="pause">Pause</button>
+        <button id="playforwards">Play Forwards</button>
+        Degrees to rotate: <input type="number" id="increment" min="1" max="359" step="1" placeholder="1">
+        Delay (in milliseconds 1-10000): <input type="number" id="delay" min="1" max="10000" step="0.1" placeholder="200">
+        <input type="checkbox" id="coloured">coloured
         <fieldset>
             <input type="range" name="image1" id="i1r" min="0" max="359">
             <input type="number" name="image1" id="i1n" min="0" max="359">
+            GREEN
         </fieldset>
         <fieldset>
             <input type="range" name="image2" id="i2r" min="0" max="359">
             <input type="number" name="image2" id="i2n" min="0" max="359">
+            RED
         </fieldset>
         <fieldset>
             <input type="range" name="image3" id="i3r" min="0" max="359">
             <input type="number" name="image3" id="i3n" min="0" max="359">
+            BLUE
         </fieldset>
         <fieldset>
             <input type="range" name="image4" id="i4r" min="0" max="359">
             <input type="number" name="image4" id="i4n" min="0" max="359">
+            BLACK
         </fieldset>
-    </form>
-
-
-
+    </div>
+    <img src="" alt="" id="img1">
+    <img src="" alt="" id="img2">
+    <img src="" alt="" id="img3">
+    <img src="" alt="" id="img4">
     <script>
         const CLU1B = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381086147747870/Clue1.png';
         const CLU2B = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381087041126480/Clue2.png';
@@ -87,25 +88,17 @@
         const CLU2C = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381087456378940/Clue2coloured.png';
         const CLU3C = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381089834549329/Clue3coloured.png';
 
-        const image1 = document.createElement("img");
-        const image2 = document.createElement("img");
-        const image3 = document.createElement("img");
-        const image4 = document.createElement("img");
+        
+
+        const image1 = document.querySelector("#img1");
+        const image2 = document.querySelector("#img2");
+        const image3 = document.querySelector("#img3");
+        const image4 = document.querySelector("#img4");
 
         image1.src = CLU1B;
         image2.src = CLU2B;
         image3.src = CLU3B;
         image4.src = CLU4B;
-
-        image1.id = "img1";
-        image2.id = "img2";
-        image3.id = "img3";
-        image4.id = "img4";
-
-        document.body.appendChild(image1);
-        document.body.appendChild(image2);
-        document.body.appendChild(image3);
-        document.body.appendChild(image4);
 
         const forwards = document.querySelector("#playforwards");
         const backwards = document.querySelector("#playbackwards");
@@ -123,7 +116,6 @@
         const i4n = document.querySelector('#i4n');
 
         const rotatePicture = (e) => {
-
             //what triggered
             console.log(e.target);
             console.log(e.target.name);
@@ -170,7 +162,6 @@
                     }
                 }
             }
-
             i1r.value = next1
             i1n.value = next1
             i2r.value = next2
@@ -183,25 +174,24 @@
             console.log("next1: ", next1);
             console.log("next2: ", next2);
             console.log("next3: ", next3);
-
-
-
-                image1.style.setProperty("--i1", next1)
+            image1.style.setProperty("--i1", next1)
             image2.style.setProperty("--i2", next2)
             image3.style.setProperty("--i3", next3)
-
-
         }
 
+
         let frame = Number(delay.value) || 200;
+
         let on = false
-        const start = () => {
+
+        const start = (inc) => {
             if (!on) {
                 frame = Number(delay.value) || 200;
                 clockwise = setInterval(play, frame);
                 on = true;
             }
         }
+
 
         const stop = () => {
             clearInterval(clockwise);
@@ -210,7 +200,6 @@
 
         forwards.addEventListener("click", start);
         pause.addEventListener("click", stop);
-
         coloured.addEventListener("change", () => {
             console.log(coloured.checked);
             if (coloured.checked) {
@@ -223,8 +212,6 @@
                 image3.src = CLU3B;
             }
         })
-
     </script>
 </body>
-
 </html>
