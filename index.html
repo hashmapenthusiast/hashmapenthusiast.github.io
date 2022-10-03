@@ -15,7 +15,7 @@
 
         img {
             position: absolute;
-            top: 200px;
+            top: 350px;
             left: 100px;
         }
 
@@ -48,7 +48,7 @@
     <h2>
         programmer broomholder
     </h2>
-        
+
 
 
     <button id="playbackwards">Play Backwards</button>
@@ -57,7 +57,26 @@
     Degrees to rotate: <input type="number" id="increment" min="1" max="359" step="1" placeholder="1">
     Delay (in milliseconds 1-1000): <input type="number" id="delay" min="1" max="10000" step="1" placeholder="200">
     <input type="checkbox" id="coloured">coloured
-    <input type="range" name="" id="i1s">
+    <form action="">
+        <fieldset>
+            <input type="range" name="image1" id="i1r" min="0" max="359">
+            <input type="number" name="image1" id="i1n" min="0" max="359">
+        </fieldset>
+        <fieldset>
+            <input type="range" name="image2" id="i2r" min="0" max="359">
+            <input type="number" name="image2" id="i2n" min="0" max="359">
+        </fieldset>
+        <fieldset>
+            <input type="range" name="image3" id="i3r" min="0" max="359">
+            <input type="number" name="image3" id="i3n" min="0" max="359">
+        </fieldset>
+        <fieldset>
+            <input type="range" name="image4" id="i4r" min="0" max="359">
+            <input type="number" name="image4" id="i4n" min="0" max="359">
+        </fieldset>
+    </form>
+
+
 
     <script>
         const CLU1B = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381086147747870/Clue1.png';
@@ -92,8 +111,45 @@
         const backwards = document.querySelector("#playbackwards");
         const delay = document.querySelector("#delay");
         const pause = document.querySelector("#pause");
-
         const coloured = document.querySelector("#coloured");
+
+        const i1r = document.querySelector('#i1r');
+        const i1n = document.querySelector('#i1n');
+        const i2r = document.querySelector('#i2r');
+        const i2n = document.querySelector('#i2n');
+        const i3r = document.querySelector('#i3r');
+        const i3n = document.querySelector('#i3n');
+        const i4r = document.querySelector('#i4r');
+        const i4n = document.querySelector('#i4n');
+
+        const rotatePicture = (e) => {
+
+            //what triggered
+            console.log(e.target);
+            console.log(e.target.name);
+            const img = document.querySelector('#img' + e.target.id[1])
+            const range = document.querySelector('#i' + e.target.id[1] + 'r')
+            const number = document.querySelector('#i' + e.target.id[1] + 'n')
+
+            //get the position
+            const css_variable = '--' + e.target.id.slice(0, 2);
+
+            //move it
+            const new_angle = e.target.value + 'deg';
+
+            img.style.setProperty(css_variable, new_angle)
+            range.value = e.target.value
+            number.value = e.target.value
+        }
+
+        i1r.addEventListener('change', (e) => rotatePicture(e))
+        i1n.addEventListener('change', (e) => rotatePicture(e))
+        i2r.addEventListener('change', (e) => rotatePicture(e))
+        i2n.addEventListener('change', (e) => rotatePicture(e))
+        i3r.addEventListener('change', (e) => rotatePicture(e))
+        i3n.addEventListener('change', (e) => rotatePicture(e))
+        i4r.addEventListener('change', (e) => rotatePicture(e))
+        i4n.addEventListener('change', (e) => rotatePicture(e))
 
         const play = () => {
             let angle1 = getComputedStyle(image1).getPropertyValue("--i1");
@@ -129,13 +185,17 @@
         }
 
         let frame = Number(delay.value) || 200;
-
+        let on = false
         const start = () => {
-            clockwise = setInterval(play, frame);
+            if (!on) {
+                clockwise = setInterval(play, frame);
+                on = true;
+            }
         }
 
         const stop = () => {
             clearInterval(clockwise);
+            on = false;
         }
 
         forwards.addEventListener("click", start);
