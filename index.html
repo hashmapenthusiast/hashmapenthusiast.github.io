@@ -58,6 +58,7 @@
         Degrees to rotate: <input type="number" id="increment" min="1" max="359" step="1" placeholder="1">
         Delay (in milliseconds 1-10000): <input type="number" id="delay" min="1" max="10000" step="0.1" placeholder="200">
         <input type="checkbox" id="coloured">coloured
+        <input type="checkbox" id="darkmode">DARKMODE
         <fieldset>
             <input type="checkbox" name="" id="i110" checked> ON/OFF
             <input type="range" name="image1" id="i1r" min="0" max="359">
@@ -97,7 +98,10 @@
         const CLU1C = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381086630105100/Clue1coloured.png';
         const CLU2C = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381087456378940/Clue2coloured.png';
         const CLU3C = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026381089834549329/Clue3coloured.png';
-
+        const CLU1D = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026733442441949205/Clue1nightmode.png'
+        const CLU2D = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026733442777485332/Clue2nightmode.png'
+        const CLU3D = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026733443243049041/Clue3nightmode.png'
+        const CLU4D = 'https://cdn.discordapp.com/attachments/1026379861549400155/1026733441942818816/Clue4nightmode.png'
 
 
         const image1 = document.querySelector("#img1");
@@ -115,7 +119,7 @@
         const delay = document.querySelector("#delay");
         const pause = document.querySelector("#pause");
         const coloured = document.querySelector("#coloured");
-
+        const darkmode = document.querySelector('#darkmode');
         const i1r = document.querySelector('#i1r');
         const i1n = document.querySelector('#i1n');
         const i2r = document.querySelector('#i2r');
@@ -128,6 +132,24 @@
         const i210 = document.querySelector('#i210');
         const i310 = document.querySelector('#i310');
         const i410 = document.querySelector('#i410');
+
+        darkmode.addEventListener('change', () => {
+            if (darkmode.checked) {
+                document.body.style.setProperty('background-color', 'black')
+                document.body.style.setProperty('color', 'ivory')
+                image1.src = CLU1D;
+                image2.src = CLU2D;
+                image3.src = CLU3D;
+                image4.src = CLU4D;
+            } else {
+                document.body.style.setProperty('background-color', 'ivory')
+                document.body.style.setProperty('color', 'black')
+                image1.src = CLU1B;
+                image2.src = CLU2B;
+                image3.src = CLU3B;
+                image4.src = CLU4B;
+            }
+        })
 
         const rotatePicture = (e) => {
             //what triggered
@@ -217,13 +239,13 @@
             on = false;
         }
         const onOff = (e) => {
-            const image = document.querySelector('#img'+e.target.id[1])
-            
-            if(e.target.checked){
-                image.style.setProperty('visibility','visible')
-                
-            }else{
-                image.style.setProperty('visibility','hidden')
+            const image = document.querySelector('#img' + e.target.id[1])
+
+            if (e.target.checked) {
+                image.style.setProperty('visibility', 'visible')
+
+            } else {
+                image.style.setProperty('visibility', 'hidden')
             }
 
 
