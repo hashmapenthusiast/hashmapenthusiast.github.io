@@ -63,6 +63,37 @@ const renderTable = (data, id) => {
         }
     }
 
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if (grid[i][j].length > 1) {
+                console.log('c-c-c-c-c-combo breaker');
+                let str = grid[i][j]
+                let temp = 0;
+                for (let k = 0; k < str.length; k++) {
+                    temp += str.charCodeAt(k) - 65;
+                }
+                temp++;
+                temp %= 26;
+                grid[i][j] = String.fromCharCode(temp + 65);
+            }
+        }
+    }
+//abcdefghijklmnopqrstuvwxyz'
+//0123456789x123456789x12345
+    const letterHash = {};
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if (grid[i][j].length > 0) {
+                let str = grid[i][j];
+                if(!(str in letterHash)){letterHash[str]=0}
+                letterHash[str]++;
+            }
+        }
+    }
+    console.log(letterHash)
+
+
+
     const post = createTable(data);
     post.id = id;
     let change = document.getElementById(id)
@@ -86,130 +117,123 @@ const asciiShiftTable = (data) => {
         for (let j = 0; j < data[i].length; j++) {
             temp += asciiShift(data[i][j]);
         }
-        data[i] = temp
+        data[i] = temp;
     }
-    console.log(data)
+    console.log(data);
 }
 const rowReverse = (row) => {
-    return row.split('').reverse().join('')
+    return row.split('').reverse().join('');
 }
 const tableReverse = (data) => {
     for (let i = 0; i < data.length; i++) {
-        data[i] = rowReverse(data[i])
+        data[i] = rowReverse(data[i]);
     }
 }
-
 const changeData = (data, func) => {
     func(data)
     for (let i = 0; i < left.length; i++) {
         for (let j = 0; j < left[i].length; j++) {
-            grid[i][j] = left[i][j]
+            grid[i][j] = left[i][j];
         }
     }
 }
-
-
-
-const leftMenu = document.getElementById('leftMenu')
-const rightMenu = document.getElementById('rightMenu')
-
-const buttonLC = document.getElementById('leftCaeser')
-const buttonLR = document.getElementById('leftReverse')
-const buttonLMU = document.getElementById('leftMoveUp')
-const buttonLML = document.getElementById('leftMoveLeft')
-const buttonLMR = document.getElementById('leftMoveRight')
-const buttonLMD = document.getElementById('leftMoveDown')
-
-const buttonRC = document.getElementById('rightCaeser')
-const buttonRR = document.getElementById('rightReverse')
-const buttonRMU = document.getElementById('rightMoveUp')
-const buttonRML = document.getElementById('rightMoveLeft')
-const buttonRMR = document.getElementById('rightMoveRight')
-const buttonRMD = document.getElementById('rightMoveDown')
+const leftMenu = document.getElementById('leftMenu');
+const rightMenu = document.getElementById('rightMenu');
+const buttonLC = document.getElementById('leftCaeser');
+const buttonLR = document.getElementById('leftReverse');
+const buttonLMU = document.getElementById('leftMoveUp');
+const buttonLML = document.getElementById('leftMoveLeft');
+const buttonLMR = document.getElementById('leftMoveRight');
+const buttonLMD = document.getElementById('leftMoveDown');
+const buttonRC = document.getElementById('rightCaeser');
+const buttonRR = document.getElementById('rightReverse');
+const buttonRMU = document.getElementById('rightMoveUp');
+const buttonRML = document.getElementById('rightMoveLeft');
+const buttonRMR = document.getElementById('rightMoveRight');
+const buttonRMD = document.getElementById('rightMoveDown');
 
 buttonLC.addEventListener('click', function (e) {
-    changeData(left.data, asciiShiftTable)
-    renderTable(grid, 'gridTable')
+    changeData(left.data, asciiShiftTable);
+    renderTable(grid, 'gridTable');
 });
 
 buttonLR.addEventListener('click', function (e) {
-    changeData(left.data, tableReverse)
-    renderTable(grid, 'gridTable')
+    changeData(left.data, tableReverse);
+    renderTable(grid, 'gridTable');
 });
 buttonLML.addEventListener('click', (e) => {
     if (left.offsetY > 0) {
-        left.offsetY -= 1
-        renderTable(grid, 'gridTable')
+        left.offsetY -= 1;
+        renderTable(grid, 'gridTable');
     } else {
-        console.error('can\'t move more left')
+        console.error('can\'t move more left');
     }
-})
+});
 buttonLMR.addEventListener('click', (e) => {
     if (left.offsetY < 36) {
-        left.offsetY += 1
-        renderTable(grid, 'gridTable')
+        left.offsetY += 1;
+        renderTable(grid, 'gridTable');
     } else {
-        console.error('can\'t move more right')
+        console.error('can\'t move more right');
     }
-})
+});
 buttonLMU.addEventListener('click', (e) => {
     if (left.offsetX > 0) {
-        left.offsetX -= 1
-        renderTable(grid, 'gridTable')
+        left.offsetX -= 1;
+        renderTable(grid, 'gridTable');
     } else {
-        console.error('can\'t move more up')
+        console.error('can\'t move more up');
     }
-})
+});
 buttonLMD.addEventListener('click', (e) => {
     if (left.offsetX < 20) {
-        left.offsetX += 1
-        renderTable(grid, 'gridTable')
+        left.offsetX += 1;
+        renderTable(grid, 'gridTable');
     } else {
-        console.error('can\'t move more down')
+        console.error('can\'t move more down');
     }
-})
-
+});
 buttonRML.addEventListener('click', (e) => {
     if (right.offsetY > 0) {
-        right.offsetY -= 1
-        renderTable(grid, 'gridTable')
+        right.offsetY -= 1;
+        renderTable(grid, 'gridTable');
     } else {
-        console.error('can\'t move more left')
+        console.error('can\'t move more left');
     }
-})
+});
 buttonRMR.addEventListener('click', (e) => {
     if (right.offsetY < 36) {
-        right.offsetY += 1
-        renderTable(grid, 'gridTable')
+        right.offsetY += 1;
+        renderTable(grid, 'gridTable');
     } else {
-        console.error('can\'t move more right')
+        console.error('can\'t move more right');
     }
-})
+});
 buttonRMU.addEventListener('click', (e) => {
     if (right.offsetX > 0) {
-        right.offsetX -= 1
-        renderTable(grid, 'gridTable')
+        right.offsetX -= 1;
+        renderTable(grid, 'gridTable');
     } else {
-        console.error('can\'t move more up')
+        console.error('can\'t move more up');
     }
-})
+});
 buttonRMD.addEventListener('click', (e) => {
     if (right.offsetX < 20) {
-        right.offsetX += 1
-        renderTable(grid, 'gridTable')
+        right.offsetX += 1;
+        renderTable(grid, 'gridTable');
     } else {
-        console.error('can\'t move more down')
+        console.error('can\'t move more down');
     }
-})
-
+});
 buttonRC.addEventListener('click', function (e) {
-    asciiShiftTable(right.data)
-    renderTable(grid, 'gridTable')
+    asciiShiftTable(right.data);
+    renderTable(grid, 'gridTable');
 });
-
 buttonRR.addEventListener('click', function (e) {
-    tableReverse(right.data)
-    renderTable(grid, 'gridTable')
+    tableReverse(right.data);
+    renderTable(grid, 'gridTable');
 });
 
-renderTable(grid, 'gridTable')
+
+
+renderTable(grid, 'gridTable');
