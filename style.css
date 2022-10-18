@@ -1,0 +1,16 @@
+body {
+    font-family: monospace;
+    display: flex;
+    flex-direction: row;
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+}
+td{
+    min-width:17px;
+    min-height:17px;
+    height:17px;
+    text-align:center
+}
